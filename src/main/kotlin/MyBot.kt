@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup.ReplyKeyboardMarkupBuilder
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow
@@ -67,10 +68,10 @@ class MyBot : TelegramLongPollingBot() {
                 "Murojaat yuborish" -> {
                     sendAnApplication(command)
                 }
+
                 "Rahbar" -> {
                     application(command)
                 }
-
 
                 else -> {
                     try {
@@ -95,7 +96,7 @@ class MyBot : TelegramLongPollingBot() {
 
     private fun application(command: Message?) {
 
-        if (command != null){
+        if (command != null) {
             try {
                 execute(
                     SendMessage
@@ -123,27 +124,25 @@ class MyBot : TelegramLongPollingBot() {
         val keyboardButtonTwo = KeyboardButton()
         val keyboardRowThree = KeyboardRow()
         val keyboardButtonThree = KeyboardButton()
-        val keyboardRowFour = KeyboardRow()
         val keyboardButtonFour = KeyboardButton()
-        val keyboardRowFive = KeyboardRow()
         val keyboardButtonFive = KeyboardButton()
+        val keyboardButtonSix = KeyboardButton()
 
         keyboardButtonOne.text = "Rahbar"
         keyboardButtonTwo.text = "Bosh ilmiy kotib"
         keyboardButtonThree.text = "Vitse Prezidentlar"
         keyboardButtonFour.text = "Kadrlar bo'limi"
         keyboardButtonFive.text = "Boshqa masalalar"
+        keyboardButtonSix.text = "Orqaga"
         keyboardRowOne.add(keyboardButtonOne)
-        keyboardRowTwo.add(keyboardButtonTwo)
-        keyboardRowThree.add(keyboardButtonThree)
-        keyboardRowFour.add(keyboardButtonFour)
-        keyboardRowFive.add(keyboardButtonFive)
-
+        keyboardRowOne.add(keyboardButtonTwo)
+        keyboardRowTwo.add(keyboardButtonThree)
+        keyboardRowTwo.add(keyboardButtonFour)
+        keyboardRowThree.add(keyboardButtonFive)
+        keyboardRowThree.add(keyboardButtonSix)
         keyboardRowList.add(keyboardRowOne)
         keyboardRowList.add(keyboardRowTwo)
         keyboardRowList.add(keyboardRowThree)
-        keyboardRowList.add(keyboardRowFour)
-        keyboardRowList.add(keyboardRowFive)
         replyKeyboardMarkup.keyboard = keyboardRowList
         try {
             execute(
@@ -171,14 +170,16 @@ class MyBot : TelegramLongPollingBot() {
         val replyKeyboardMarkup = ReplyKeyboardMarkup()
         replyKeyboardMarkup.resizeKeyboard = true
         replyKeyboardMarkup.selective = true
-        val keyboardRowList = ArrayList<KeyboardRow>()
+        replyKeyboardMarkup.oneTimeKeyboard = false
+
+        val keyboard = ArrayList<KeyboardRow>()
+
+
         val keyboardRowOne = KeyboardRow()
         val keyboardButtonOne = KeyboardButton()
         val keyboardRowTwo = KeyboardRow()
         val keyboardButtonTwo = KeyboardButton()
-        val keyboardRowThree = KeyboardRow()
         val keyboardButtonThree = KeyboardButton()
-        val keyboardRowFour = KeyboardRow()
         val keyboardButtonFour = KeyboardButton()
 
         keyboardButtonOne.text = "Murojaat yuborish"
@@ -186,15 +187,14 @@ class MyBot : TelegramLongPollingBot() {
         keyboardButtonThree.text = "Bog'lanish"
         keyboardButtonFour.text = "Veb saytga o'tish"
         keyboardRowOne.add(keyboardButtonOne)
-        keyboardRowTwo.add(keyboardButtonTwo)
-        keyboardRowThree.add(keyboardButtonThree)
-        keyboardRowFour.add(keyboardButtonFour)
+        keyboardRowOne.add(keyboardButtonTwo)
+        keyboardRowTwo.add(keyboardButtonThree)
+        keyboardRowTwo.add(keyboardButtonFour)
 
-        keyboardRowList.add(keyboardRowOne)
-        keyboardRowList.add(keyboardRowTwo)
-        keyboardRowList.add(keyboardRowThree)
-        keyboardRowList.add(keyboardRowFour)
-        replyKeyboardMarkup.keyboard = keyboardRowList
+        keyboard.add(keyboardRowOne)
+        keyboard.add(keyboardRowTwo)
+
+        replyKeyboardMarkup.keyboard = keyboard
         try {
             execute(
                 SendMessage
